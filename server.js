@@ -2,6 +2,14 @@ const express = require("express")
 const app = express()
 const port = 3000
 
+//  BODY PARSER JSON
+app.use(express.json())
+app.use(express.static("public"))
+
+// importiamo i router e li utilizziamo
+const routes = require("./router/routes")
+// dando /post per la rotta
+app.use("/post",routes)
 
 
 
@@ -9,11 +17,6 @@ const port = 3000
 app.get("/",(req,res)=>{
     res.send("questo e il server mio!!!!")
 })
-
-
-
-
-
 
 
 

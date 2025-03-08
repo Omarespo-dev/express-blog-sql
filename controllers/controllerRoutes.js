@@ -15,7 +15,24 @@ function index(req,res){
 }
 
 
+function destroy(req,res){
+    
+    // ricaviamo ID
+    const id = parseInt(req.params.id)
 
+    // Prepariamo la query per ricavare i dati dal db
+    const sql= `
+    DELETE 
+    FROM posts
+    WHERE id = ?`
+
+
+    // Eseguo query
+    connection.query(sql,[id],(err) => {
+        if(err) return res.status(500).json({error: "Database query failed" })
+        res.sendStatus(204)
+    })
+}
 
 
 
@@ -28,5 +45,6 @@ function index(req,res){
 
 
 module.exports = {
-    index
+    index,
+    destroy
 }

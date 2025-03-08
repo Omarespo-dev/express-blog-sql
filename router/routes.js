@@ -27,9 +27,7 @@ router.put("/:id",(req,res) => {
 })
 
 // DELETE ELIMINA UN ELEMENTO CON .DELETE
-router.delete("/:id",(req,res) => {
-    res.json("questa e la rotta DELETE!!!!!!!!!!!")
-})
+router.delete("/:id",controller.destroy)
 
 
 

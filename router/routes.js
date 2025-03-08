@@ -15,9 +15,7 @@ router.get("/",controller.index)
 router.get("/:id",controller.show)
 
 // STORE CREA UN NUOVO ELEMENTO CON .POST
-router.post("/",(req,res) => {
-    res.json("questa e la rotta STORE!!!!!!!!!!!")
-})
+router.post("/",controller.store)
 
 // UPDATE MODIFICA INTERAMENTE L ELEMENTO  CON .PUT
 router.put("/:id",(req,res) => {

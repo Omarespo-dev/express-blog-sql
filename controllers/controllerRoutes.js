@@ -20,23 +20,44 @@ function show(req, res) {
 
     // Prepariamo la query per ricavare i dati dal db
     const sql = `
-    SELECT * 
+    SELECT 
+    posts.*, (SELECT GROUP_CONCAT(tags.label SEPARATOR ', ') 
+    FROM post_tag 
+    JOIN tags ON post_tag.tag_id = tags.id 
+    WHERE post_tag.post_id = posts.id) AS tags
     FROM posts
-    WHERE id = ?`
+    WHERE posts.id = ?;`
 
     // Eseguo query
-    connection.query(sql,[id],(err, results) => {
+    connection.query(sql, [id], (err, results) => {
         // Gestione dell errore del db 500
         if (err) return res.status(500).json({ error: "Database query failed" })
-        
+
         // Gestione dell errore di non trovato 404
-        if(results.length === 0 ) return res.status(404).json({error: "Not found"})
+        if (results.length === 0) return res.status(404).json({ error: "Not found" })
         res.json(results[0])
-    
+
         // console.log(results[0])
     })
 }
 
+function store(req,res){
+    const {title,content,image} =req.body
+    
+    // Prepariamo la query per ricavare i dati dal db
+    const sql = `
+    INSERT INTO posts (title,content,image)
+    values (?,?,?)`
+
+    // Eseguo query
+    connection.query(sql, [title,content,image], (err, results) => {
+        // Gestione dell errore del db 500
+        if (err) return res.status(500).json({ error: "Database query failed" })
+
+        res.json(results)
+    })
+
+}
 
 function destroy(req, res) {
 
@@ -59,14 +80,9 @@ function destroy(req, res) {
 
 
 
-
-
-
-
-
-
 module.exports = {
     index,
     destroy,
-    show
+    show,
+    store
 }

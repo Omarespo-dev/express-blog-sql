@@ -4,11 +4,12 @@ const express = require("express")
 // Importiamo router di express
 const router = express.Router()
 
+// Importiamo il controller
+const controller = require("../controllers/controllerRoutes")
+
 
 // INDEX VISUALIZZA TUTTI GLI ELEMENTI CON .GET 
-router.get("/",(req,res) => {
-    res.json("questa e la rotta INDEX!!!!!!!!!!!")
-})
+router.get("/",controller.index)
 
 // SHOW VISUALIZZA UN ELEMENTO CON .GET 
 router.get("/:id",(req,res) => {

@@ -12,9 +12,7 @@ const controller = require("../controllers/controllerRoutes")
 router.get("/",controller.index)
 
 // SHOW VISUALIZZA UN ELEMENTO CON .GET 
-router.get("/:id",(req,res) => {
-    res.json("questa e la rotta SHOW!!!!!!!!!!!")
-})
+router.get("/:id",controller.show)
 
 // STORE CREA UN NUOVO ELEMENTO CON .POST
 router.post("/",(req,res) => {
